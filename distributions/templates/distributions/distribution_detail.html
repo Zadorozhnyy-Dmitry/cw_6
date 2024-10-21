@@ -1,0 +1,62 @@
+{% extends 'base/base.html' %}
+{% block title %}НеСпам{% endblock title %}
+{% block content %}
+
+<div class="card">
+    <div class="card-header">
+        <h3>{{ object.name }}</h3>
+        <ul class="list-unstyled mt-2 mb-2">
+            <li><b>Первая отправка</b></li>
+            <li>Дата: {{ object.first_send_date }}</li>
+            <li>Время: {{ object.first_send_time }}</li>
+            <li><b>Статус:</b>
+                {% if object.status == 'created' %}
+                создана
+                {% elif object.status == 'launched' %}
+                запущена
+                {% elif object.status == 'completed' %}
+                завершена
+                {% endif %}
+            </li>
+            <li><b>Письмо:</b></li>
+            <li>{{object.letter.topic}}</li>
+            <li>{{object.letter.body}}</li>
+        </ul>
+
+    </div>
+    <div class="card-body">
+        <b>Список клиентов для рассылки "{{object.name}}"</b>
+        <div class="table-responsive small">
+            <table class="table table-striped table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Имя</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Комментарий</th>
+
+                </tr>
+                </thead>
+                {% for client in object.clients.all %}
+                <tbody>
+                <tr>
+                    <td>{{ client.id }}</td>
+                    <td>{{ client.name }}</td>
+                    <td>{{ client.client_email }}</td>
+                    <td>{{ client.comments }}</td>
+
+                </tr>
+
+                </tbody>
+                {% endfor %}
+            </table>
+
+        </div>
+    </div>
+    <div class="card-footer">
+        <a class="btn btn-outline-primary" href="{% url 'distributions:distributions_edit' object.pk %}" role="button">Редактировать</a>
+        <a class="btn btn-outline-primary" href="{% url 'distributions:distributions_list' %}" role="button">Назад</a>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,169 @@
+{% extends 'base/base.html' %}
+{% block title %}Список рассылок{% endblock title %}
+{% block content %}
+
+<div class="col-12 mb-4">
+    <a class="btn btn-outline-primary" href="{% url 'distributions:distributions_create' %}">Создать рассылку</a>
+</div>
+<div class="card-deck mb-3 text-center">
+    {% for object in object_list %}
+    <div class="col-4">
+        <div class="card mb-4 box-shadow">
+            <div class="card-header">
+                <h4 class="my-0 font-weight-normal">
+                    {% if object.period == 'daily' %}
+                    Eжедневная
+                    {% elif object.period == 'weekly' %}
+                    Еженедельная
+                    {% elif object.period == 'monthly' %}
+                    Ежемесячная
+                    {% endif %}
+                </h4>
+            </div>
+            <div class="card-body">
+                <h3 class="card-title pricing-card-title">
+                    {{ object.name }}
+                </h3>
+                <ul class="list-unstyled mt-3 mb-4">
+                    <li><b>Первая отправка</b></li>
+                    <li>Дата: {{ object.first_send_date }}</li>
+                    <li>Время: {{ object.first_send_time }}</li>
+                    <li><b>Статус:</b>
+                        {% if object.status == 'created' %}
+                        создана
+                        {% elif object.status == 'launched' %}
+                        запущена
+                        {% elif object.status == 'completed' %}
+                        завершена
+                        {% endif %}
+                    </li>
+
+                </ul>
+
+                <div class="pricing-header px-3 pb-md-3 mx-auto text-center">
+                    <a href="{% url 'distributions:distributions_detail' object.pk %}" class="text-primary">
+                        <h5>Подробнее</h5>
+                    </a>
+                </div>
+
+                <a class="btn btn-outline-primary"
+                   href="{% url 'distributions:distributions_edit' object.pk %}" role="button">Изменить</a>
+                <a class="btn btn-outline-danger" href="{% url 'distributions:distributions_delete' object.pk %}" role="button">Удалить</a>
+
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+
+<h2 class="display-6 text-center mb-4">Compare plans</h2>
+
+<div class="table-responsive">
+    <table class="table text-center">
+        <thead>
+        <tr>
+            <th style="width: 30%;"></th>
+            <th style="width: 20%;">Free</th>
+            <th style="width: 20%;">Pro</th>
+            <th style="width: 20%;">Enterprise</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th scope="row" class="text-start">Public</th>
+            <td>
+                <svg class="bi" width="24" height="24">
+                    <use xlink:href="#check"/>
+                </svg>
+            </td>
+            <td>
+                <svg class="bi" width="24" height="24">
+                    <use xlink:href="#check"/>
+                </svg>
+            </td>
+            <td>
+                <svg class="bi" width="24" height="24">
+                    <use xlink:href="#check"/>
+                </svg>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row" class="text-start">Private</th>
+            <td></td>
+            <td>
+                <svg class="bi" width="24" height="24">
+                    <use xlink:href="#check"/>
+                </svg>
+            </td>
+            <td>
+                <svg class="bi" width="24" height="24">
+                    <use xlink:href="#check"/>
+                </svg>
+            </td>
+        </tr>
+        </tbody>
+
+        <tbody>
+        <tr>
+            <th scope="row" class="text-start">Permissions</th>
+            <td>
+                <svg class="bi" width="24" height="24">
+                    <use xlink:href="#check"/>
+                </svg>
+            </td>
+            <td>
+                <svg class="bi" width="24" height="24">
+                    <use xlink:href="#check"/>
+                </svg>
+            </td>
+            <td>
+                <svg class="bi" width="24" height="24">
+                    <use xlink:href="#check"/>
+                </svg>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row" class="text-start">Sharing</th>
+            <td></td>
+            <td>
+                <svg class="bi" width="24" height="24">
+                    <use xlink:href="#check"/>
+                </svg>
+            </td>
+            <td>
+                <svg class="bi" width="24" height="24">
+                    <use xlink:href="#check"/>
+                </svg>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row" class="text-start">Unlimited members</th>
+            <td></td>
+            <td>
+                <svg class="bi" width="24" height="24">
+                    <use xlink:href="#check"/>
+                </svg>
+            </td>
+            <td>
+                <svg class="bi" width="24" height="24">
+                    <use xlink:href="#check"/>
+                </svg>
+            </td>
+        </tr>
+        <tr>
+            <th scope="row" class="text-start">Extra security</th>
+            <td></td>
+            <td></td>
+            <td>
+                <svg class="bi" width="24" height="24">
+                    <use xlink:href="#check"/>
+                </svg>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+
+{% endblock %}
