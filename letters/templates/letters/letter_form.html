@@ -1,0 +1,35 @@
+{% extends 'base/base.html' %}
+{% block title %}
+    {% if object %}
+        Изменить письмо
+    {% else %}
+        Добавить письмо
+    {% endif %}
+{% endblock title %}
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <form class="row" method="post" enctype="multipart/form-data">
+                <div class="card">
+                    <div class="card-body">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                    </div>
+                    <div class="btn-group" role="group" aria-label="Default button group">
+                        {% if object %}
+                        <button type="submit" class="btn btn-outline-primary" role="button">Сохранить</button>
+                        {% else %}
+                        <button type="submit" class="btn btn-outline-primary" role="button">Создать</button>
+                        {% endif %}
+                        <a class="btn btn-outline-primary" href="{% url 'letters:letters_list' %}"
+                           role="button">Назад</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
