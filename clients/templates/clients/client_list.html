@@ -1,0 +1,40 @@
+{% extends 'base/base.html' %}
+{% block title %}Список клиентов{% endblock title %}
+{% block content %}
+<div class="col-12 mb-4">
+    <a class="btn btn-outline-primary" href="{% url 'clients:clients_create' %}">Добавить клиента</a>
+</div>
+
+<table class="table table-striped table-hover">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Имя</th>
+        <th scope="col">Email</th>
+        <th scope="col">Комментарий</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+        <th scope="col"></th>
+
+    </tr>
+    </thead>
+    {% for object in object_list %}
+    <tbody>
+    <tr>
+        <td>{{ object.id }}</td>
+        <td>{{ object.name }}</td>
+        <td>{{ object.client_email }}</td>
+        <td>{{ object.comments }}</td>
+        <td>
+            <a href="{% url 'clients:clients_update' object.pk %}" class="btn btn-primary btn-sm">Изменить</a>
+        </td>
+        <td>
+            <a href="{% url 'clients:clients_delete' object.pk %}" class="btn btn-danger btn-sm">Удалить</a>
+        </td>
+    </tr>
+    </tbody>
+    {% endfor %}
+</table>
+
+
+{% endblock %}
