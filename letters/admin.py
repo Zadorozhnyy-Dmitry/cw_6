@@ -1,3 +1,16 @@
 from django.contrib import admin
 
-# Register your models here.
+from letters.models import Letter
+
+
+@admin.register(Letter)
+class LetterAdmin(admin.ModelAdmin):
+    """
+    Админка для сообщения клиенту
+    """
+    list_display = (
+        'id',
+        'topic',
+        'body',
+        'owner',
+    )
