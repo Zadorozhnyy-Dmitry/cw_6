@@ -17,13 +17,13 @@
                         {% csrf_token %}
                         {{ form.as_p }}
                     </div>
-                    <div class="btn-group" role="group" aria-label="Default button group">
+                    <div class="row">
                         {% if object %}
-                            <button type="submit" class="btn btn-outline-primary" role="button">Сохранить</button>
+                            <button type="submit" class="btn btn-success ml-5 px-2 pb-md-2 mx-2" role="button">Сохранить</button>
                         {% else %}
-                            <button type="submit" class="btn btn-outline-primary" role="button">Создать</button>
+                            <button type="submit" class="btn btn-success ml-5 px-2 pb-md-2 mx-2" role="button">Создать</button>
                         {% endif %}
-                        <a class="btn btn-outline-primary" href="{% url 'clients:clients_list' %}"
+                        <a class="btn btn-primary px-2 pb-md-2 mx-2" href="{% url 'clients:clients_list' %}"
                            role="button">Назад</a>
                     </div>
                 </div>
