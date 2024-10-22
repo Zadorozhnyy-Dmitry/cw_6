@@ -35,6 +35,14 @@ class Distribution(models.Model):
         default=datetime.now,
         verbose_name="Время первой отправки",
     )
+    last_send_date = models.DateField(
+        verbose_name="Дата последней отправки",
+        **NULLABLE,
+    )
+    last_send_time = models.TimeField(
+        verbose_name="Время последней отправки",
+        **NULLABLE,
+    )
     period = models.CharField(
         max_length=20,
         choices=PERIOD_CHOICES,

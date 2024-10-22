@@ -33,7 +33,9 @@ class DistributionsCreateView(CreateView):
     """
 
     model = Distribution
-    fields = ("name", "first_send_date", "first_send_time", "period", "clients", "letter",)
+    fields = (
+        "name", "first_send_date", "first_send_time", "last_send_date", "last_send_time", "period", "clients", "letter",
+    )
     success_url = reverse_lazy("distributions:distributions_list")
 
     def form_valid(self, form):
@@ -53,7 +55,9 @@ class DistributionsUpdateView(UpdateView):
     """
 
     model = Distribution
-    fields = ("name", "first_send_date", "first_send_time", "period", "clients", "letter",)
+    fields = (
+        "name", "first_send_date", "first_send_time", "last_send_date", "last_send_time", "period", "clients", "letter",
+    )
     success_url = reverse_lazy("distributions:distributions_list")
 
 

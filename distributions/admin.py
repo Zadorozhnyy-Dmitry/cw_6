@@ -10,6 +10,8 @@ class DistributionAdmin(admin.ModelAdmin):
         "name",
         "first_send_date",
         "first_send_time",
+        "last_send_date",
+        "last_send_time",
         "period",
         "status",
         "owner",
