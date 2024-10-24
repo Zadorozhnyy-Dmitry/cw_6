@@ -95,6 +95,6 @@ class Attempt(models.Model):
         return f"{self.last_attempt} - {self.status}"
 
     class Meta:
-        verbose_name = "попытка рассылки"
-        verbose_name_plural = "попытки рассылки"
-        ordering = ('status',)
+        verbose_name = "Отчет"
+        verbose_name_plural = "Отчеты"
+        ordering = ('last_attempt',)

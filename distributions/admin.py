@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from distributions.models import Distribution
+from distributions.models import Distribution, Attempt
 
 
 @admin.register(Distribution)
@@ -19,3 +19,10 @@ class DistributionAdmin(admin.ModelAdmin):
     )
     list_filter = ("owner",)
     ordering = ("first_send_date",)
+
+
+@admin.register(Attempt)
+class AttemptAdmin(admin.ModelAdmin):
+    list_display = ('id', 'last_attempt', 'status', 'server_answer', 'distributions', 'owner')
+    list_filter = ('status',)
+    search_fields = ('last_attempt', 'server_answer',)
