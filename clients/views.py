@@ -14,6 +14,7 @@ class ClientsListView(ListView):
     Контроллер для отображения списка клиентов
     """
     model = Client
+    extra_context = {'title': 'Клиенты'}
 
 
 class ClientsCreateView(CreateView):
@@ -26,6 +27,7 @@ class ClientsCreateView(CreateView):
         "client_email",
         "comments",
     )
+    extra_context = {'title': 'Клиенты'}
     success_url = reverse_lazy("clients:clients_list")
 
     def form_valid(self, form):
@@ -50,6 +52,7 @@ class ClientsUpdateView(UpdateView):
         "client_email",
         "comments",
     )
+    extra_context = {'title': 'Клиенты'}
     success_url = reverse_lazy("clients:clients_list")
 
 
@@ -59,4 +62,5 @@ class ClientsDeleteView(DeleteView):
     """
 
     model = Client
+    extra_context = {'title': 'Клиенты'}
     success_url = reverse_lazy("clients:clients_list")

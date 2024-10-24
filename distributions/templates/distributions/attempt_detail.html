@@ -1,0 +1,22 @@
+{% extends 'base/base.html' %}
+{% block title %}Отчеты{% endblock title %}
+{% block content %}
+
+<div class="card">
+    <div class="card-header">
+        <h3>{{ object.distributions.name }}</h3>
+    </div>
+    <div class="card-body">
+        <ul class="list-unstyled mt-2 mb-2">
+            <li><b>Последняя отправка:</b> {{ object.last_attempt }}</li>
+            <li><b>Статус:</b> {{ object.last_attempt }}</li>
+            <li><b>Ответ сервера:</b></li>
+            <li>{{object.server_answer}}</li>
+        </ul>
+    </div>
+    <div class="card-footer">
+        <a class="btn btn-outline-primary" href="{% url 'distributions:attempt_list' %}" role="button">Назад</a>
+    </div>
+</div>
+
+{% endblock %}

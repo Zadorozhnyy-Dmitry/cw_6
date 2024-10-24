@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
 
-    <title>{% if title %}{{ title }} - {% endif %}НеСпам</title>
+    <title>НеСпам{% if title %} - {{ title }}{% endif %}</title>
 
 
     <!-- Bootstrap core CSS -->
@@ -22,8 +22,7 @@
         <a class="p-2 text-dark" href="{% url 'letters:letters_list' %}">Письма</a>
         <a class="p-2 text-dark" href="{% url 'clients:clients_list' %}">Клиенты</a>
         <a class="p-2 text-dark" href="{% url 'distributions:distributions_list' %}">Рассылки</a>
-        <a class="p-2 text-dark" href="#">Отчет</a>
-        <a class="p-2 text-dark" href="#">Создание рассылки</a>
+        <a class="p-2 text-dark" href="{% url 'distributions:attempt_list' %}">Отчеты</a>
     </nav>
     <a class="btn btn-outline-primary" href="#">Вход</a>
     <a class="btn btn-outline-primary" href="#">Регистрация</a>

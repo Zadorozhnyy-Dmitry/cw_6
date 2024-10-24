@@ -5,10 +5,9 @@ from django.views.generic import (
     UpdateView,
     DeleteView,
 )
-from django.shortcuts import render
 from django.urls import reverse_lazy
 
-from distributions.models import Distribution
+from distributions.models import Distribution, Attempt
 
 
 class DistributionsListView(ListView):
@@ -17,6 +16,7 @@ class DistributionsListView(ListView):
     """
 
     model = Distribution
+    extra_context = {'title': 'Рассылки'}
 
 
 class DistributionsDetailView(DetailView):
@@ -25,6 +25,7 @@ class DistributionsDetailView(DetailView):
     """
 
     model = Distribution
+    extra_context = {'title': 'Рассылки'}
 
 
 class DistributionsCreateView(CreateView):
@@ -34,8 +35,9 @@ class DistributionsCreateView(CreateView):
 
     model = Distribution
     fields = (
-        "name", "first_send_date", "first_send_time", "last_send_date", "last_send_time", "period", "clients", "letter",
+        "first_send_date", "first_send_time", "last_send_date", "last_send_time", "period", "clients", "letter",
     )
+    extra_context = {'title': 'Рассылки'}
     success_url = reverse_lazy("distributions:distributions_list")
 
     def form_valid(self, form):
@@ -45,6 +47,7 @@ class DistributionsCreateView(CreateView):
         distribution = form.save()
         user = self.request.user
         distribution.owner = user
+        distribution.name = distribution.letter.topic  # название рассылки по теме письма
         distribution.save()
         return super().form_valid(form)
 
@@ -56,9 +59,19 @@ class DistributionsUpdateView(UpdateView):
 
     model = Distribution
     fields = (
-        "name", "first_send_date", "first_send_time", "last_send_date", "last_send_time", "period", "clients", "letter",
+        "first_send_date", "first_send_time", "last_send_date", "last_send_time", "period", "clients", "letter",
     )
+    extra_context = {'title': 'Рассылки'}
     success_url = reverse_lazy("distributions:distributions_list")
+
+    def form_valid(self, form):
+        """
+        Автоматическое изменение имени при смене письма
+        """
+        distribution = form.save()
+        distribution.name = distribution.letter.topic
+        distribution.save()
+        return super().form_valid(form)
 
 
 class DistributionsDeleteView(DeleteView):
@@ -67,4 +80,21 @@ class DistributionsDeleteView(DeleteView):
     """
 
     model = Distribution
+    extra_context = {'title': 'Рассылки'}
     success_url = reverse_lazy("distributions:distributions_list")
+
+
+class AttemptListView(ListView):
+    """
+    Контроллер попытки рассылки
+    """
+    model = Attempt
+    extra_context = {'title': 'Отчеты'}
+
+
+class AttemptDetailView(DetailView):
+    """
+    Контроллер детального описания попытки рассылки
+    """
+    model = Attempt
+    extra_context = {'title': 'Отчеты'}

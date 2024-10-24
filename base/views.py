@@ -5,11 +5,13 @@ def index(request):
     """
     Контроллер отображения главной страницы с образцами
     """
-    return render(request, "base/examples_list.html")
+    context = {'title': 'Главная', }
+    return render(request, "base/examples_list.html", context)
 
 
 def clients_list_examples(request):
     """
     Контроллер отображения образца со списком клиентов
     """
-    return render(request, "base/examples_clients.html")
+    context = {'title': 'Главная', }
+    return render(request, "base/examples_clients.html", context)

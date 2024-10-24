@@ -8,6 +8,7 @@ class LettersListView(ListView):
     Контроллер отображения списка писем
     """
     model = Letter
+    extra_context = {'title': 'Письма'}
 
 
 class LettersDetailView(DetailView):
@@ -15,6 +16,7 @@ class LettersDetailView(DetailView):
     Контроллер отображения одного письма
     """
     model = Letter
+    extra_context = {'title': 'Письма'}
 
 
 class LettersCreateView(CreateView):
@@ -23,6 +25,7 @@ class LettersCreateView(CreateView):
     """
     model = Letter
     fields = ('topic', 'body',)
+    extra_context = {'title': 'Письма'}
     success_url = reverse_lazy('letters:letters_list')
 
     def form_valid(self, form):
@@ -42,6 +45,7 @@ class LettersUpdateView(UpdateView):
     """
     model = Letter
     fields = ('topic', 'body',)
+    extra_context = {'title': 'Письма'}
     success_url = reverse_lazy('letters:letters_list')
 
 
@@ -50,4 +54,5 @@ class LettersDeleteView(DeleteView):
     Контроллер удаления письма
     """
     model = Letter
+    extra_context = {'title': 'Письма'}
     success_url = reverse_lazy("letters:letters_list")

@@ -20,7 +20,7 @@ class Client(models.Model):
     comments = models.CharField(max_length=150, verbose_name="Комментарий", **NULLABLE)
 
     owner = models.ForeignKey(
-        User, on_delete=models.CASCADE, verbose_name="Заказчик", **NULLABLE
+        User, on_delete=models.SET_NULL, verbose_name="Пользователь", **NULLABLE
     )
 
     def __str__(self):

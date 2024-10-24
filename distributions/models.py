@@ -57,7 +57,7 @@ class Distribution(models.Model):
     )
 
     owner = models.ForeignKey(
-        User, on_delete=models.CASCADE, verbose_name="Заказчик", **NULLABLE
+        User, on_delete=models.SET_NULL, verbose_name="Пользователь", **NULLABLE
     )
     clients = models.ManyToManyField(Client, verbose_name="Адресаты")
     letter = models.ForeignKey(Letter, on_delete=models.CASCADE, verbose_name='Письмо')
@@ -68,3 +68,33 @@ class Distribution(models.Model):
     class Meta:
         verbose_name = "Рассылка"
         verbose_name_plural = "Рассылки"
+
+
+class Attempt(models.Model):
+    """
+    Модель описывает попытку рассылки
+    """
+    STATUS_CHOICES = {
+        ("done", "выполнена"),
+        ("failed", "неудачно"),
+    }
+    last_attempt = models.DateField(
+        verbose_name="Дата и время последней попытки рассылки"
+    )
+    status = models.CharField(
+        max_length=20,
+        choices=STATUS_CHOICES,
+        default="failed",
+        verbose_name="Статус рассылки",
+    )
+    server_answer = models.TextField(verbose_name="Ответ сервера")
+    distributions = models.ForeignKey(Distribution, on_delete=models.CASCADE, verbose_name='Рассылка')
+    owner = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь')
+
+    def __str__(self):
+        return f"{self.last_attempt} - {self.status}"
+
+    class Meta:
+        verbose_name = "попытка рассылки"
+        verbose_name_plural = "попытки рассылки"
+        ordering = ('status',)
