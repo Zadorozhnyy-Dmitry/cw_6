@@ -6,9 +6,10 @@
     <div class="card-header">
         <h3>{{ object.name }}</h3>
         <ul class="list-unstyled mt-2 mb-2">
-            <li><b>Первая отправка</b></li>
-            <li>Дата: {{ object.first_send_date }}</li>
-            <li>Время: {{ object.first_send_time }}</li>
+            <li><b>Дата первой рассылки:</b> {{ object.first_send_date }} {{ object.first_send_time }}</li>
+            {% if object.next_send_date %}
+                <li><b>Следующая рассылка:</b> {{ object.next_send_datetime }}</li>
+            {% endif %}
             <li><b>Статус:</b>
                 {% if object.status == 'created' %}
                 создана
@@ -18,8 +19,9 @@
                 завершена
                 {% endif %}
             </li>
-            <li><b>Письмо:</b></li>
-            <li>{{object.letter.topic}}</li>
+            <li><b>Количество отправленных рассылок:</b> {{ object.counter }}</li>
+            <li><b>Тема письма:</b> {{object.letter.topic}}</li>
+            <li><b>Содержание письма:</b></li>
             <li>{{object.letter.body}}</li>
         </ul>
 

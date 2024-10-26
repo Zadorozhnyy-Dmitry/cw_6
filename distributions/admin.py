@@ -10,12 +10,14 @@ class DistributionAdmin(admin.ModelAdmin):
         "name",
         "first_send_date",
         "first_send_time",
+        "next_send_datetime",
         "last_send_date",
         "last_send_time",
         "period",
         "status",
         "owner",
         "letter",
+        "counter",
     )
     list_filter = ("owner",)
     ordering = ("first_send_date",)

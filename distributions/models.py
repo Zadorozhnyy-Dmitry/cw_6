@@ -35,6 +35,11 @@ class Distribution(models.Model):
         default=datetime.now,
         verbose_name="Время первой отправки",
     )
+    next_send_datetime = models.CharField(
+        max_length=30,
+        verbose_name="Дата следующей отправки",
+        default='',
+    )
     last_send_date = models.DateField(
         verbose_name="Дата последней отправки",
         **NULLABLE,
@@ -61,6 +66,7 @@ class Distribution(models.Model):
     )
     clients = models.ManyToManyField(Client, verbose_name="Адресаты")
     letter = models.ForeignKey(Letter, on_delete=models.CASCADE, verbose_name='Письмо')
+    counter = models.PositiveIntegerField(default=0, editable=False, verbose_name='Количество отправлений')
 
     def __str__(self):
         return f"Рассылка {self.name}\nДата первой рассылки: {self.first_send_date}\nПериод рассылки {self.period}"
