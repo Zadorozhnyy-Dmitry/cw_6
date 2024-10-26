@@ -2,9 +2,8 @@ from django.core.management import BaseCommand
 
 from distributions.models import Distribution
 
-from datetime import datetime, timedelta
-from django.core.mail import send_mail
-from config import settings
+from datetime import datetime
+from distributions.services import start_time_to_str, stop_time_to_str, next_time_to_str, send_email
 
 
 class Command(BaseCommand):
@@ -13,8 +12,6 @@ class Command(BaseCommand):
     """
 
     def handle(self, *args, **options):
-        # переменная для определения атрибута timedelta
-        delta_time_dict = {'daily': 1, 'weekly': 7, 'monthly': 30, }
         # прохожу по рассылкам, если статус "завершена", то пропуск рассылки
         for distribution in Distribution.objects.exclude(status='completed'):
             # конвертирую даты в строки для их сравнения
@@ -22,20 +19,10 @@ class Command(BaseCommand):
             str_now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
             # конвертирую дату и время первой отправки в строку
-            str_start_send = (distribution.first_send_date.strftime('%Y-%m-%d') +
-                              distribution.first_send_time.strftime(' %H:%M:%S'))
+            str_start_send = start_time_to_str(distribution)
 
-            # конвертирую дату и время последней отправки в строку, при ее отсутствии задаю плюс год
-            if distribution.last_send_date:
-                if distribution.last_send_time:
-                    str_stop_send = (distribution.last_send_date.strftime('%Y-%m-%d') +
-                                     distribution.last_send_time.strftime(' %H:%M:%S'))
-                else:
-                    str_stop_send = (distribution.last_send_date.strftime('%Y-%m-%d') +
-                                     ' 00:00:00')
-            else:
-                stop_date = distribution.first_send_date + timedelta(days=365)
-                str_stop_send = (stop_date.strftime('%Y-%m-%d') + ' 00:00:00')
+            # конвертирую дату и время последней отправки в строку
+            str_stop_send = stop_time_to_str(distribution)
 
             # если рассылок не было, то оцениваю дату первой рассылки
             # если рассылки были оцениваю дату следующей отправки
@@ -43,19 +30,13 @@ class Command(BaseCommand):
                     distribution.counter > 0 and distribution.next_send_datetime < str_now):
 
                 # запускаю рассылку
-                self.send_email(distribution)
+                send_email(distribution)
 
                 # увеличиваю счетчик
                 distribution.counter += 1
 
                 # определяю дату следующей отправки и конвертирую в строку
-                next_date = distribution.first_send_date + timedelta(days=delta_time_dict[distribution.period])
-                str_next_date = (next_date.strftime('%Y-%m-%d') +
-                                 distribution.first_send_time.strftime(' %H:%M:%S'))
-                while str_next_date < str_now:
-                    next_date += timedelta(days=delta_time_dict[distribution.period])
-                    str_next_date = (next_date.strftime('%Y-%m-%d') +
-                                     distribution.first_send_time.strftime(' %H:%M:%S'))
+                str_next_date = next_time_to_str(distribution)
                 distribution.next_send_datetime = str_next_date
 
                 # меняю статус
@@ -66,19 +47,3 @@ class Command(BaseCommand):
 
                 # сохраняю поля, которые менял
                 distribution.save(update_fields=["status", "next_send_datetime", "counter", ])
-
-    @staticmethod
-    def send_email(distribution):
-        """
-        Функция рассылки почты
-        """
-        # Определяю список клиентов
-        clients_list = [client.client_email for client in distribution.clients.all()]
-
-        # функция отправки
-        send_mail(
-            distribution.letter.topic,
-            distribution.letter.body,
-            settings.EMAIL_HOST_USER,
-            clients_list,
-        )
