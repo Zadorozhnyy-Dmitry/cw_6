@@ -3,6 +3,8 @@ from django.core.management import BaseCommand
 from distributions.models import Distribution
 
 from datetime import datetime, timedelta
+from django.core.mail import send_mail
+from config import settings
 
 
 class Command(BaseCommand):
@@ -13,11 +15,8 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         # переменная для определения атрибута timedelta
         delta_time_dict = {'daily': 1, 'weekly': 7, 'monthly': 30, }
-        # прохожу по рассылкам
-        for distribution in Distribution.objects.all():
-            # если статус "завершена", то пропуск рассылки
-            if distribution.status == 'completed':
-                continue
+        # прохожу по рассылкам, если статус "завершена", то пропуск рассылки
+        for distribution in Distribution.objects.exclude(status='completed'):
             # конвертирую даты в строки для их сравнения
             # конвертирую текущую дату и время в строку
             str_now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
@@ -42,8 +41,10 @@ class Command(BaseCommand):
             # если рассылки были оцениваю дату следующей отправки
             if (distribution.counter == 0 and str_start_send < str_now or
                     distribution.counter > 0 and distribution.next_send_datetime < str_now):
+
                 # запускаю рассылку
-                print('start_app')
+                self.send_email(distribution)
+
                 # увеличиваю счетчик
                 distribution.counter += 1
 
@@ -65,3 +66,19 @@ class Command(BaseCommand):
 
                 # сохраняю поля, которые менял
                 distribution.save(update_fields=["status", "next_send_datetime", "counter", ])
+
+    @staticmethod
+    def send_email(distribution):
+        """
+        Функция рассылки почты
+        """
+        # Определяю список клиентов
+        clients_list = [client.client_email for client in distribution.clients.all()]
+
+        # функция отправки
+        send_mail(
+            distribution.letter.topic,
+            distribution.letter.body,
+            settings.EMAIL_HOST_USER,
+            clients_list,
+        )

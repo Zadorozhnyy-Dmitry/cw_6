@@ -38,7 +38,7 @@ class Distribution(models.Model):
     next_send_datetime = models.CharField(
         max_length=30,
         verbose_name="Дата следующей отправки",
-        default='',
+        **NULLABLE,
     )
     last_send_date = models.DateField(
         verbose_name="Дата последней отправки",
