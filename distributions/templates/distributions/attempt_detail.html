@@ -9,7 +9,14 @@
     <div class="card-body">
         <ul class="list-unstyled mt-2 mb-2">
             <li><b>Последняя отправка:</b> {{ object.last_attempt }}</li>
-            <li><b>Статус:</b> {{ object.last_attempt }}</li>
+            <li><b>Пользователь:</b> {{ object.distributions.owner.email }}</li>
+            <li><b>Статус:</b>
+                {% if object.status == 'done' %}
+                    Выполнена
+                {% elif object.status == 'failed' %}
+                    Неудачно
+                {% endif %}
+            </li>
             <li><b>Ответ сервера:</b></li>
             <li>{{object.server_answer}}</li>
         </ul>

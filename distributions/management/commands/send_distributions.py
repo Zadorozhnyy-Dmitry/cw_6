@@ -2,8 +2,8 @@ from django.core.management import BaseCommand
 
 from distributions.models import Distribution
 
-from datetime import datetime
 from distributions.services import start_time_to_str, stop_time_to_str, next_time_to_str, send_email
+from django.utils import timezone
 
 
 class Command(BaseCommand):
@@ -16,7 +16,7 @@ class Command(BaseCommand):
         for distribution in Distribution.objects.exclude(status='completed'):
             # конвертирую даты в строки для их сравнения
             # конвертирую текущую дату и время в строку
-            str_now = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+            str_now = timezone.now().strftime('%Y-%m-%d %H:%M:%S')
 
             # конвертирую дату и время первой отправки в строку
             str_start_send = start_time_to_str(distribution)

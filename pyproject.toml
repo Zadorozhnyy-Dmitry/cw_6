@@ -16,6 +16,7 @@ pytils = "^0.4.1"
 django = "4.2"
 redis = "^5.1.0"
 python-dotenv = "^1.0.1"
+pytz = "^2024.2"
 
 
 [build-system]

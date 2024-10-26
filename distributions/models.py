@@ -84,7 +84,7 @@ class Attempt(models.Model):
         ("done", "выполнена"),
         ("failed", "неудачно"),
     }
-    last_attempt = models.DateField(
+    last_attempt = models.DateTimeField(
         verbose_name="Дата и время последней попытки рассылки"
     )
     status = models.CharField(
@@ -95,10 +95,9 @@ class Attempt(models.Model):
     )
     server_answer = models.TextField(verbose_name="Ответ сервера")
     distributions = models.ForeignKey(Distribution, on_delete=models.CASCADE, verbose_name='Рассылка')
-    owner = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Пользователь')
 
     def __str__(self):
-        return f"{self.last_attempt} - {self.status}"
+        return f"Рассылка {self.distributions.name}. Пользователь: {self.distributions.owner.email}. Дата: {self.last_attempt}. Статус: {self.status}"
 
     class Meta:
         verbose_name = "Отчет"

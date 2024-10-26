@@ -19,7 +19,13 @@
         <td>{{ object.id }}</td>
         <td>{{ object.distributions.name }}</td>
         <td>{{ object.last_attempt }}</td>
-        <td>{{ object.status }}</td>
+        <td>
+            {% if object.status == 'done' %}
+                Выполнена
+            {% elif object.status == 'failed' %}
+                Неудачно
+            {% endif %}
+        </td>
         <td>
             <a href="{% url 'distributions:attempt_detail' object.pk %}" class="btn btn-primary btn-sm">Подробнее</a>
         </td>
