@@ -4,7 +4,10 @@ from blog.models import Blog
 from clients.models import Client
 from distributions.models import Distribution
 
+from django.views.decorators.cache import cache_page
 
+
+@cache_page(60)
 def index(request):
     """
     Контроллер отображения главной страницы с образцами
