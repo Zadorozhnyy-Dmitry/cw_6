@@ -6,6 +6,7 @@ from clients.models import Client
 from config.settings import NULLABLE
 from letters.models import Letter
 from users.models import User
+from django.core.exceptions import ValidationError
 
 
 class Distribution(models.Model):
@@ -67,6 +68,11 @@ class Distribution(models.Model):
     clients = models.ManyToManyField(Client, verbose_name="Адресаты")
     letter = models.ForeignKey(Letter, on_delete=models.CASCADE, verbose_name='Письмо')
     counter = models.PositiveIntegerField(default=0, editable=False, verbose_name='Количество отправлений')
+
+    def clean(self):
+        # Проверка, что дата окончания больше даты начала
+        if self.last_send_date <= self.first_send_date:
+            raise ValidationError("Дата окончания должна быть больше даты начала.")
 
     def __str__(self):
         return f"Рассылка {self.name}\nДата первой рассылки: {self.first_send_date}\nПериод рассылки {self.period}"

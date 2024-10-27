@@ -1,9 +1,10 @@
 from django import forms
 
 from clients.models import Client
+from distributions.forms import StyleFormMixin
 
 
-class ClientsForm(forms.ModelForm):
+class ClientsForm(StyleFormMixin, forms.ModelForm):
     """
     Класс для описания формы клиента
     """

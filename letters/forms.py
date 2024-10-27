@@ -1,9 +1,10 @@
 from django import forms
 
+from distributions.forms import StyleFormMixin
 from letters.models import Letter
 
 
-class LettersForm(forms.ModelForm):
+class LettersForm(StyleFormMixin, forms.ModelForm):
     """
     Класс для описания формы письма
     """
