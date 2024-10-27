@@ -141,5 +141,17 @@
     </table>
 </div>
 
+<div class="col-md-6">
+    <h5><b>Наш блог:</b></h5>
+    <ul>
+        {% for post in posts %}
+        <li>{{ post.title }}</li>
+        {% empty %}
+        <li>Нет постов.</li>
+        {% endfor %}
+    </ul>
+
+</div>
+
 
 {% endblock %}

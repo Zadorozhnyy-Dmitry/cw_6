@@ -24,6 +24,7 @@
             <a class="p-2 text-dark" href="{% url 'clients:clients_list' %}">Клиенты</a>
             <a class="p-2 text-dark" href="{% url 'distributions:distributions_list' %}">Рассылки</a>
             <a class="p-2 text-dark" href="{% url 'distributions:attempt_list' %}">Отчеты</a>
+            <a class="p-2 text-dark" href="{% url 'blog:list' %}">Блог</a>
         {% endif %}
     </nav>
     {% if user.is_authenticated %}

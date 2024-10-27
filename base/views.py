@@ -1,5 +1,6 @@
 from django.shortcuts import render
 
+from blog.models import Blog
 from clients.models import Client
 from distributions.models import Distribution
 
@@ -31,6 +32,9 @@ def index(request):
     # кол-во уникальных клиентов
     unique_clients = Client.objects.values("client_email").distinct().count()
 
+    # ввожу 3 поста из блога
+    blog_posts = Blog.objects.order_by('-id')[:3]
+
     context = {
         "title": "Главная",
         "total": total_distributions,
@@ -47,6 +51,7 @@ def index(request):
         "monthly_launched": monthly_launched_distributions,
         "monthly_completed": monthly_completed_distributions,
         "unique_clients": unique_clients,
+        'posts': blog_posts,
     }
     return render(request, "base/examples_list.html", context)
 

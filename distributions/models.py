@@ -82,6 +82,9 @@ class Distribution(models.Model):
     class Meta:
         verbose_name = "Рассылка"
         verbose_name_plural = "Рассылки"
+        permissions = [
+            ("set_change_status", "can change status is_published"),
+        ]
 
 
 class Attempt(models.Model):
