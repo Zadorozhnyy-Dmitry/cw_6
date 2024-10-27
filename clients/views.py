@@ -6,6 +6,7 @@ from django.views.generic import (
 )
 from django.urls import reverse_lazy
 
+from clients.forms import ClientsForm
 from clients.models import Client
 
 
@@ -22,11 +23,7 @@ class ClientsCreateView(CreateView):
     Контроллер для создания клиента
     """
     model = Client
-    fields = (
-        "name",
-        "client_email",
-        "comments",
-    )
+    form_class = ClientsForm
     extra_context = {'title': 'Клиенты'}
     success_url = reverse_lazy("clients:clients_list")
 
@@ -47,11 +44,7 @@ class ClientsUpdateView(UpdateView):
     """
 
     model = Client
-    fields = (
-        "name",
-        "client_email",
-        "comments",
-    )
+    form_class = ClientsForm
     extra_context = {'title': 'Клиенты'}
     success_url = reverse_lazy("clients:clients_list")
 

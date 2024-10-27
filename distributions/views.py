@@ -7,6 +7,7 @@ from django.views.generic import (
 )
 from django.urls import reverse_lazy
 
+from distributions.forms import DistributionForm
 from distributions.models import Distribution, Attempt
 
 
@@ -34,9 +35,7 @@ class DistributionsCreateView(CreateView):
     """
 
     model = Distribution
-    fields = (
-        "first_send_date", "first_send_time", "last_send_date", "last_send_time", "period", "clients", "letter",
-    )
+    form_class = DistributionForm
     extra_context = {'title': 'Рассылки'}
     success_url = reverse_lazy("distributions:distributions_list")
 
@@ -58,9 +57,7 @@ class DistributionsUpdateView(UpdateView):
     """
 
     model = Distribution
-    fields = (
-        "first_send_date", "first_send_time", "last_send_date", "last_send_time", "period", "clients", "letter",
-    )
+    form_class = DistributionForm
     extra_context = {'title': 'Рассылки'}
     success_url = reverse_lazy("distributions:distributions_list")
 

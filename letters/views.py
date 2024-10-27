@@ -1,5 +1,7 @@
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
+
+from letters.forms import LettersForm
 from letters.models import Letter
 
 
@@ -24,7 +26,7 @@ class LettersCreateView(CreateView):
     Контроллер создания нового письма
     """
     model = Letter
-    fields = ('topic', 'body',)
+    form_class = LettersForm
     extra_context = {'title': 'Письма'}
     success_url = reverse_lazy('letters:letters_list')
 
@@ -44,7 +46,7 @@ class LettersUpdateView(UpdateView):
     Контроллер редактирования письма
     """
     model = Letter
-    fields = ('topic', 'body',)
+    form_class = LettersForm
     extra_context = {'title': 'Письма'}
     success_url = reverse_lazy('letters:letters_list')
 
