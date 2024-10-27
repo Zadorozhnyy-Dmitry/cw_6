@@ -96,109 +96,46 @@
     </div>
 </div>
 
-<h2 class="display-6 text-center mb-4">Compare plans</h2>
+<h2 class="display-6 text-center mb-4">Статистика</h2>
+<h5 class="display-6 mb-4"><b>Количество клиентов:</b> {{ unique_clients }}</h5>
+<h5 class="display-6 mb-4"><b>Общее количество рассылок:</b> {{ total }}</h5>
 
 <div class="table-responsive">
     <table class="table text-center">
         <thead>
         <tr>
             <th style="width: 30%;"></th>
-            <th style="width: 20%;">Free</th>
-            <th style="width: 20%;">Pro</th>
-            <th style="width: 20%;">Enterprise</th>
+            <th style="width: 20%;">Ежедневные</th>
+            <th style="width: 20%;">Еженедельные</th>
+            <th style="width: 20%;">Ежемесячные</th>
         </tr>
         </thead>
         <tbody>
         <tr>
-            <th scope="row" class="text-start">Public</th>
-            <td>
-                <svg class="bi" width="24" height="24">
-                    <use xlink:href="#check"/>
-                </svg>
-            </td>
-            <td>
-                <svg class="bi" width="24" height="24">
-                    <use xlink:href="#check"/>
-                </svg>
-            </td>
-            <td>
-                <svg class="bi" width="24" height="24">
-                    <use xlink:href="#check"/>
-                </svg>
-            </td>
+            <th scope="row" class="text-start">Созданы</th>
+            <td> {{ daily_created }}</td>
+            <td> {{ weekly_created }}</td>
+            <td> {{ monthly_created }}</td>
         </tr>
         <tr>
-            <th scope="row" class="text-start">Private</th>
-            <td></td>
-            <td>
-                <svg class="bi" width="24" height="24">
-                    <use xlink:href="#check"/>
-                </svg>
-            </td>
-            <td>
-                <svg class="bi" width="24" height="24">
-                    <use xlink:href="#check"/>
-                </svg>
-            </td>
+            <th scope="row" class="text-start">Запущены</th>
+            <td> {{ daily_launched }}</td>
+            <td> {{ weekly_launched }}</td>
+            <td> {{ monthly_launched }}</td>
+        </tr>
+        <tr>
+            <th scope="row" class="text-start">Завершены</th>
+            <td> {{ daily_completed }}</td>
+            <td> {{ weekly_completed }}</td>
+            <td> {{ monthly_completed }}</td>
         </tr>
         </tbody>
-
         <tbody>
         <tr>
-            <th scope="row" class="text-start">Permissions</th>
-            <td>
-                <svg class="bi" width="24" height="24">
-                    <use xlink:href="#check"/>
-                </svg>
-            </td>
-            <td>
-                <svg class="bi" width="24" height="24">
-                    <use xlink:href="#check"/>
-                </svg>
-            </td>
-            <td>
-                <svg class="bi" width="24" height="24">
-                    <use xlink:href="#check"/>
-                </svg>
-            </td>
-        </tr>
-        <tr>
-            <th scope="row" class="text-start">Sharing</th>
-            <td></td>
-            <td>
-                <svg class="bi" width="24" height="24">
-                    <use xlink:href="#check"/>
-                </svg>
-            </td>
-            <td>
-                <svg class="bi" width="24" height="24">
-                    <use xlink:href="#check"/>
-                </svg>
-            </td>
-        </tr>
-        <tr>
-            <th scope="row" class="text-start">Unlimited members</th>
-            <td></td>
-            <td>
-                <svg class="bi" width="24" height="24">
-                    <use xlink:href="#check"/>
-                </svg>
-            </td>
-            <td>
-                <svg class="bi" width="24" height="24">
-                    <use xlink:href="#check"/>
-                </svg>
-            </td>
-        </tr>
-        <tr>
-            <th scope="row" class="text-start">Extra security</th>
-            <td></td>
-            <td></td>
-            <td>
-                <svg class="bi" width="24" height="24">
-                    <use xlink:href="#check"/>
-                </svg>
-            </td>
+            <th scope="row" class="text-start">Всего</th>
+            <td><b> {{ daily_total }} </b></td>
+            <td><b> {{ weekly_total }} </b></td>
+            <td><b> {{ monthly_total }} </b></td>
         </tr>
         </tbody>
     </table>
