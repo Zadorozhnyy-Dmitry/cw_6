@@ -1,10 +1,14 @@
+from django.contrib.auth.forms import (
+    UserCreationForm,
+    PasswordResetForm,
+    UserChangeForm,
+)
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm
-
+from distributions.forms import StyleFormMixin
 from users.models import User
 
 
-class UserRegisterForm(UserCreationForm):
+class UserRegisterForm(StyleFormMixin, UserCreationForm):
     """
     Форма для регистрации пользователя
     """
@@ -18,22 +22,27 @@ class UserRegisterForm(UserCreationForm):
         )
 
 
-class UserProfileForm(UserChangeForm):
+class UserPasswordResetForm(StyleFormMixin, PasswordResetForm):
     """
-    Форма для редактирования профиля пользователя
+    Форма для сброса пароля
     """
 
     class Meta:
         model = User
-        fields = (
-            "first_name",
-            "last_name",
-            "email",
-        )
+        fields = ("email",)
+
+
+class UserProfileForm(StyleFormMixin, UserChangeForm):
+    """
+    Форма для редактирования профиля пользователя
+    """
+
+    model = User
+    fields = ("email", "first_name", "last_name",)
 
     def __init__(self, *args, **kwargs):
         """
-        Скрываю поле пароля из формы
+        Исключаем поле "пароль" из формы
         """
         super().__init__(*args, **kwargs)
 
