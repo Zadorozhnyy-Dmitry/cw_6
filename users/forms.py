@@ -32,7 +32,7 @@ class UserPasswordResetForm(StyleFormMixin, PasswordResetForm):
         fields = ("email",)
 
 
-class UserProfileForm(StyleFormMixin, UserChangeForm):
+class UserProfileForm(UserChangeForm):
     """
     Форма для редактирования профиля пользователя
     """
@@ -46,4 +46,4 @@ class UserProfileForm(StyleFormMixin, UserChangeForm):
         """
         super().__init__(*args, **kwargs)
 
-        self.fields["password"].widget = forms.HiddenInput()
+        self.fields['password'].widget = forms.HiddenInput()

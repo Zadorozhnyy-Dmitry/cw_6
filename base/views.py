@@ -12,39 +12,21 @@ def index(request):
     total_distributions = Distribution.objects.count()
     # считаю кол-во ежедневных рассылок
     daily_total_distributions = Distribution.objects.filter(period="daily").count()
-    daily_created_distributions = Distribution.objects.filter(
-        period="daily", status="created"
-    ).count()
-    daily_launched_distributions = Distribution.objects.filter(
-        period="daily", status="launched"
-    ).count()
-    daily_completed_distributions = Distribution.objects.filter(
-        period="daily", status="completed"
-    ).count()
+    daily_created_distributions = Distribution.objects.filter(period="daily", status="created").count()
+    daily_launched_distributions = Distribution.objects.filter(period="daily", status="launched").count()
+    daily_completed_distributions = Distribution.objects.filter(period="daily", status="completed").count()
 
     # считаю кол-во еженедельных рассылок
     weekly_total_distributions = Distribution.objects.filter(period="weekly").count()
-    weekly_created_distributions = Distribution.objects.filter(
-        period="weekly", status="created"
-    ).count()
-    weekly_launched_distributions = Distribution.objects.filter(
-        period="weekly", status="launched"
-    ).count()
-    weekly_completed_distributions = Distribution.objects.filter(
-        period="weekly", status="completed"
-    ).count()
+    weekly_created_distributions = Distribution.objects.filter(period="weekly", status="created").count()
+    weekly_launched_distributions = Distribution.objects.filter(period="weekly", status="launched").count()
+    weekly_completed_distributions = Distribution.objects.filter(period="weekly", status="completed").count()
 
     # считаю кол-во ежемесячных рассылок
     monthly_total_distributions = Distribution.objects.filter(period="monthly").count()
-    monthly_created_distributions = Distribution.objects.filter(
-        period="monthly", status="created"
-    ).count()
-    monthly_launched_distributions = Distribution.objects.filter(
-        period="monthly", status="launched"
-    ).count()
-    monthly_completed_distributions = Distribution.objects.filter(
-        period="monthly", status="completed"
-    ).count()
+    monthly_created_distributions = Distribution.objects.filter(period="monthly", status="created").count()
+    monthly_launched_distributions = Distribution.objects.filter(period="monthly", status="launched").count()
+    monthly_completed_distributions = Distribution.objects.filter(period="monthly", status="completed").count()
 
     # кол-во уникальных клиентов
     unique_clients = Client.objects.values("client_email").distinct().count()

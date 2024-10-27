@@ -5,8 +5,10 @@
 <div class="col-12 mb-4">
     <a class="btn btn-outline-primary" href="{% url 'distributions:distributions_create' %}">Создать рассылку</a>
 </div>
+
 <div class="card-deck mb-3 text-center">
     {% for object in object_list %}
+    {% if user == object.owner or user.is_staff or user.is_superuser %}
     <div class="col-4">
         <div class="card mb-4 box-shadow">
             <div class="card-header">
@@ -45,125 +47,17 @@
                         <h5>Подробнее</h5>
                     </a>
                 </div>
-
+                {% if user == object.owner or user.is_superuser %}
                 <a class="btn btn-outline-primary"
                    href="{% url 'distributions:distributions_update' object.pk %}" role="button">Изменить</a>
-                <a class="btn btn-outline-danger" href="{% url 'distributions:distributions_delete' object.pk %}" role="button">Удалить</a>
-
+                <a class="btn btn-outline-danger" href="{% url 'distributions:distributions_delete' object.pk %}"
+                   role="button">Удалить</a>
+                {% endif %}
             </div>
         </div>
     </div>
+    {% endif %}
     {% endfor %}
 </div>
-
-
-<h2 class="display-6 text-center mb-4">Compare plans</h2>
-
-<div class="table-responsive">
-    <table class="table text-center">
-        <thead>
-        <tr>
-            <th style="width: 30%;"></th>
-            <th style="width: 20%;">Free</th>
-            <th style="width: 20%;">Pro</th>
-            <th style="width: 20%;">Enterprise</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <th scope="row" class="text-start">Public</th>
-            <td>
-                <svg class="bi" width="24" height="24">
-                    <use xlink:href="#check"/>
-                </svg>
-            </td>
-            <td>
-                <svg class="bi" width="24" height="24">
-                    <use xlink:href="#check"/>
-                </svg>
-            </td>
-            <td>
-                <svg class="bi" width="24" height="24">
-                    <use xlink:href="#check"/>
-                </svg>
-            </td>
-        </tr>
-        <tr>
-            <th scope="row" class="text-start">Private</th>
-            <td></td>
-            <td>
-                <svg class="bi" width="24" height="24">
-                    <use xlink:href="#check"/>
-                </svg>
-            </td>
-            <td>
-                <svg class="bi" width="24" height="24">
-                    <use xlink:href="#check"/>
-                </svg>
-            </td>
-        </tr>
-        </tbody>
-
-        <tbody>
-        <tr>
-            <th scope="row" class="text-start">Permissions</th>
-            <td>
-                <svg class="bi" width="24" height="24">
-                    <use xlink:href="#check"/>
-                </svg>
-            </td>
-            <td>
-                <svg class="bi" width="24" height="24">
-                    <use xlink:href="#check"/>
-                </svg>
-            </td>
-            <td>
-                <svg class="bi" width="24" height="24">
-                    <use xlink:href="#check"/>
-                </svg>
-            </td>
-        </tr>
-        <tr>
-            <th scope="row" class="text-start">Sharing</th>
-            <td></td>
-            <td>
-                <svg class="bi" width="24" height="24">
-                    <use xlink:href="#check"/>
-                </svg>
-            </td>
-            <td>
-                <svg class="bi" width="24" height="24">
-                    <use xlink:href="#check"/>
-                </svg>
-            </td>
-        </tr>
-        <tr>
-            <th scope="row" class="text-start">Unlimited members</th>
-            <td></td>
-            <td>
-                <svg class="bi" width="24" height="24">
-                    <use xlink:href="#check"/>
-                </svg>
-            </td>
-            <td>
-                <svg class="bi" width="24" height="24">
-                    <use xlink:href="#check"/>
-                </svg>
-            </td>
-        </tr>
-        <tr>
-            <th scope="row" class="text-start">Extra security</th>
-            <td></td>
-            <td></td>
-            <td>
-                <svg class="bi" width="24" height="24">
-                    <use xlink:href="#check"/>
-                </svg>
-            </td>
-        </tr>
-        </tbody>
-    </table>
-</div>
-
 
 {% endblock %}

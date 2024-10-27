@@ -14,6 +14,7 @@
     </tr>
     </thead>
     {% for object in object_list %}
+        {% if user == object.distributions.owner or user.is_staff or user.is_superuser %}
     <tbody>
     <tr>
         <td>{{ object.id }}</td>
@@ -31,6 +32,7 @@
         </td>
     </tr>
     </tbody>
+    {% endif %}
     {% endfor %}
 </table>
 

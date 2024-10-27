@@ -9,9 +9,10 @@ from django.urls import reverse_lazy
 
 from distributions.forms import DistributionForm
 from distributions.models import Distribution, Attempt
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 
 
-class DistributionsListView(ListView):
+class DistributionsListView(LoginRequiredMixin, ListView):
     """
     Контролер для списка рассылок
     """
@@ -20,7 +21,7 @@ class DistributionsListView(ListView):
     extra_context = {"title": "Рассылки"}
 
 
-class DistributionsDetailView(DetailView):
+class DistributionsDetailView(LoginRequiredMixin, DetailView):
     """
     Контроллер для отображения списка адресатов одной рассылки
     """
@@ -29,7 +30,7 @@ class DistributionsDetailView(DetailView):
     extra_context = {"title": "Рассылки"}
 
 
-class DistributionsCreateView(CreateView):
+class DistributionsCreateView(LoginRequiredMixin, CreateView):
     """
     Контроллер создания рассылки
     """
@@ -37,6 +38,7 @@ class DistributionsCreateView(CreateView):
     model = Distribution
     form_class = DistributionForm
     extra_context = {"title": "Рассылки"}
+    permission_required = 'distributions.add_distribution'
     success_url = reverse_lazy("distributions:distributions_list")
 
     def form_valid(self, form):
@@ -53,7 +55,7 @@ class DistributionsCreateView(CreateView):
         return super().form_valid(form)
 
 
-class DistributionsUpdateView(UpdateView):
+class DistributionsUpdateView(LoginRequiredMixin, UpdateView):
     """
     Контроллер изменения рассылки
     """
@@ -61,6 +63,7 @@ class DistributionsUpdateView(UpdateView):
     model = Distribution
     form_class = DistributionForm
     extra_context = {"title": "Рассылки"}
+    permission_required = 'distributions.change_distribution'
     success_url = reverse_lazy("distributions:distributions_list")
 
     def form_valid(self, form):
@@ -73,17 +76,18 @@ class DistributionsUpdateView(UpdateView):
         return super().form_valid(form)
 
 
-class DistributionsDeleteView(DeleteView):
+class DistributionsDeleteView(LoginRequiredMixin, DeleteView):
     """
     Контроллер удаления рассылки
     """
 
     model = Distribution
     extra_context = {"title": "Рассылки"}
+    permission_required = 'distributions.delete_distribution'
     success_url = reverse_lazy("distributions:distributions_list")
 
 
-class AttemptListView(ListView):
+class AttemptListView(LoginRequiredMixin, ListView):
     """
     Контроллер попытки рассылки
     """
@@ -92,7 +96,7 @@ class AttemptListView(ListView):
     extra_context = {"title": "Отчеты"}
 
 
-class AttemptDetailView(DetailView):
+class AttemptDetailView(LoginRequiredMixin, DetailView):
     """
     Контроллер детального описания попытки рассылки
     """

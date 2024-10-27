@@ -8,7 +8,7 @@
         <ul class="list-unstyled mt-2 mb-2">
             <li><b>Дата первой рассылки:</b> {{ object.first_send_date }} {{ object.first_send_time }}</li>
             {% if object.next_send_date %}
-                <li><b>Следующая рассылка:</b> {{ object.next_send_datetime }}</li>
+            <li><b>Следующая рассылка:</b> {{ object.next_send_datetime }}</li>
             {% endif %}
             <li><b>Статус:</b>
                 {% if object.status == 'created' %}
@@ -56,7 +56,10 @@
         </div>
     </div>
     <div class="card-footer">
-        <a class="btn btn-outline-primary" href="{% url 'distributions:distributions_update' object.pk %}" role="button">Редактировать</a>
+        {% if user == object.owner or user.is_superuser %}
+        <a class="btn btn-outline-primary" href="{% url 'distributions:distributions_update' object.pk %}"
+           role="button">Редактировать</a>
+        {% endif %}
         <a class="btn btn-outline-primary" href="{% url 'distributions:distributions_list' %}" role="button">Назад</a>
     </div>
 </div>

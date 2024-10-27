@@ -9,16 +9,17 @@
     <p class="lead">{% block header %}{% endblock header %}</p>
 
 </div>
-
-<div class="pricing-header px-3 pb-md-4 mx-auto text-center">
-    <a href="#" class="text-primary">
-        <h4>Зарегистрируйтесь для создания рассылки</h4>
-    </a>
-</div>
+{% if not user.is_authenticated and title != 'Вход' and title != 'Регистрация' %}
+    <div class="pricing-header px-3 pb-md-4 mx-auto text-center">
+        <a href="{% url 'users:login' %}" class="text-primary">
+            <h4>Зарегистрируйтесь/войдите для создания рассылки</h4>
+        </a>
+    </div>
+{% endif %}
 <div class="container">
 
-    {% block content %}
-    {% endblock %}
+        {% block content %}
+        {% endblock %}
 
     <footer class="pt-4 my-md-5 pt-md-5 border-top">
         {% include 'base/includes/inc_footer.html' %}

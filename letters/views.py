@@ -9,9 +9,10 @@ from django.urls import reverse_lazy
 
 from letters.forms import LettersForm
 from letters.models import Letter
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 
 
-class LettersListView(ListView):
+class LettersListView(LoginRequiredMixin, ListView):
     """
     Контроллер отображения списка писем
     """
@@ -20,7 +21,7 @@ class LettersListView(ListView):
     extra_context = {"title": "Письма"}
 
 
-class LettersDetailView(DetailView):
+class LettersDetailView(LoginRequiredMixin, DetailView):
     """
     Контроллер отображения одного письма
     """
@@ -29,7 +30,7 @@ class LettersDetailView(DetailView):
     extra_context = {"title": "Письма"}
 
 
-class LettersCreateView(CreateView):
+class LettersCreateView(LoginRequiredMixin, CreateView):
     """
     Контроллер создания нового письма
     """
@@ -37,6 +38,7 @@ class LettersCreateView(CreateView):
     model = Letter
     form_class = LettersForm
     extra_context = {"title": "Письма"}
+    permission_required = 'letters.add_letter'
     success_url = reverse_lazy("letters:letters_list")
 
     def form_valid(self, form):
@@ -50,7 +52,7 @@ class LettersCreateView(CreateView):
         return super().form_valid(form)
 
 
-class LettersUpdateView(UpdateView):
+class LettersUpdateView(LoginRequiredMixin, UpdateView):
     """
     Контроллер редактирования письма
     """
@@ -58,14 +60,16 @@ class LettersUpdateView(UpdateView):
     model = Letter
     form_class = LettersForm
     extra_context = {"title": "Письма"}
+    permission_required = 'letters.change_letter'
     success_url = reverse_lazy("letters:letters_list")
 
 
-class LettersDeleteView(DeleteView):
+class LettersDeleteView(LoginRequiredMixin, DeleteView):
     """
     Контроллер удаления письма
     """
 
     model = Letter
     extra_context = {"title": "Письма"}
+    permission_required = 'letters.delete_letter'
     success_url = reverse_lazy("letters:letters_list")

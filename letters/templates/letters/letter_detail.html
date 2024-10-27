@@ -10,7 +10,9 @@
         {{object.body}}
     </div>
     <div class="card-footer">
+        {% if user == object.owner or user.is_superuser %}
         <a class="btn btn-outline-primary" href="{% url 'letters:letters_update' object.pk %}" role="button">Редактировать</a>
+        {% endif %}
         <a class="btn btn-outline-primary" href="{% url 'letters:letters_list' %}" role="button">Назад</a>
     </div>
 </div>

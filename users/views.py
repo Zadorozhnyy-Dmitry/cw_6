@@ -9,6 +9,7 @@ from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404, redirect
 from django.contrib.auth.views import PasswordResetView
 from django.contrib.auth.forms import PasswordResetForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class UserCreateView(CreateView):
@@ -18,6 +19,7 @@ class UserCreateView(CreateView):
 
     model = User
     form_class = UserRegisterForm
+    extra_context = {"title": "Регистрация"}
     success_url = reverse_lazy("users:login")
 
     def form_valid(self, form):
@@ -86,14 +88,14 @@ class UserInValidEmail(TemplateView):
     template_name = "users/invalid_email.html"
 
 
-class ProfileView(UpdateView):
+class ProfileView(LoginRequiredMixin, UpdateView):
     """
     Контроллер профиля пользователя
     """
 
     model = User
     form_class = UserProfileForm
-    success_url = reverse_lazy("users:profile")
+    success_url = reverse_lazy('users:profile')
 
     def get_object(self, queryset=None):
         """
