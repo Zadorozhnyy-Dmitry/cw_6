@@ -39,9 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-
     "django_crontab",
-
     "base",
     "letters",
     "clients",
@@ -156,6 +154,4 @@ EMAIL_USE_SSL = os.getenv("EMAIL_USE_SSL", False) == "True"
 SERVER_EMAIL = EMAIL_HOST_USER
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
-CRONJOBS = [
-    ('*/1 * * * *', 'distributions.management.commands.send_distributions')
-]
+CRONJOBS = [("*/1 * * * *", "distributions.management.commands.send_distributions")]

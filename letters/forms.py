@@ -8,6 +8,10 @@ class LettersForm(StyleFormMixin, forms.ModelForm):
     """
     Класс для описания формы письма
     """
+
     class Meta:
         model = Letter
-        fields = ('topic', 'body',)
+        fields = (
+            "topic",
+            "body",
+        )

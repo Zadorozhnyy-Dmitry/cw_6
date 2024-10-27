@@ -14,7 +14,9 @@ class Letter(models.Model):
         verbose_name="Тема письма",
         help_text="Укажите тему письма",
     )
-    body = models.TextField(verbose_name="Текст письма", help_text="Укажите содержание письма")
+    body = models.TextField(
+        verbose_name="Текст письма", help_text="Укажите содержание письма"
+    )
 
     owner = models.ForeignKey(
         User, on_delete=models.SET_NULL, verbose_name="Пользователь", **NULLABLE

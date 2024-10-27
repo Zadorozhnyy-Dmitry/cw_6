@@ -17,7 +17,7 @@ class DistributionsListView(ListView):
     """
 
     model = Distribution
-    extra_context = {'title': 'Рассылки'}
+    extra_context = {"title": "Рассылки"}
 
 
 class DistributionsDetailView(DetailView):
@@ -26,7 +26,7 @@ class DistributionsDetailView(DetailView):
     """
 
     model = Distribution
-    extra_context = {'title': 'Рассылки'}
+    extra_context = {"title": "Рассылки"}
 
 
 class DistributionsCreateView(CreateView):
@@ -36,7 +36,7 @@ class DistributionsCreateView(CreateView):
 
     model = Distribution
     form_class = DistributionForm
-    extra_context = {'title': 'Рассылки'}
+    extra_context = {"title": "Рассылки"}
     success_url = reverse_lazy("distributions:distributions_list")
 
     def form_valid(self, form):
@@ -46,7 +46,9 @@ class DistributionsCreateView(CreateView):
         distribution = form.save()
         user = self.request.user
         distribution.owner = user
-        distribution.name = distribution.letter.topic  # название рассылки по теме письма
+        distribution.name = (
+            distribution.letter.topic
+        )  # название рассылки по теме письма
         distribution.save()
         return super().form_valid(form)
 
@@ -58,7 +60,7 @@ class DistributionsUpdateView(UpdateView):
 
     model = Distribution
     form_class = DistributionForm
-    extra_context = {'title': 'Рассылки'}
+    extra_context = {"title": "Рассылки"}
     success_url = reverse_lazy("distributions:distributions_list")
 
     def form_valid(self, form):
@@ -77,7 +79,7 @@ class DistributionsDeleteView(DeleteView):
     """
 
     model = Distribution
-    extra_context = {'title': 'Рассылки'}
+    extra_context = {"title": "Рассылки"}
     success_url = reverse_lazy("distributions:distributions_list")
 
 
@@ -85,13 +87,15 @@ class AttemptListView(ListView):
     """
     Контроллер попытки рассылки
     """
+
     model = Attempt
-    extra_context = {'title': 'Отчеты'}
+    extra_context = {"title": "Отчеты"}
 
 
 class AttemptDetailView(DetailView):
     """
     Контроллер детального описания попытки рассылки
     """
+
     model = Attempt
-    extra_context = {'title': 'Отчеты'}
+    extra_context = {"title": "Отчеты"}

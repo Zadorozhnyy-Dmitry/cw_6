@@ -1,4 +1,10 @@
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import (
+    ListView,
+    DetailView,
+    CreateView,
+    UpdateView,
+    DeleteView,
+)
 from django.urls import reverse_lazy
 
 from letters.forms import LettersForm
@@ -9,26 +15,29 @@ class LettersListView(ListView):
     """
     Контроллер отображения списка писем
     """
+
     model = Letter
-    extra_context = {'title': 'Письма'}
+    extra_context = {"title": "Письма"}
 
 
 class LettersDetailView(DetailView):
     """
     Контроллер отображения одного письма
     """
+
     model = Letter
-    extra_context = {'title': 'Письма'}
+    extra_context = {"title": "Письма"}
 
 
 class LettersCreateView(CreateView):
     """
     Контроллер создания нового письма
     """
+
     model = Letter
     form_class = LettersForm
-    extra_context = {'title': 'Письма'}
-    success_url = reverse_lazy('letters:letters_list')
+    extra_context = {"title": "Письма"}
+    success_url = reverse_lazy("letters:letters_list")
 
     def form_valid(self, form):
         """
@@ -45,16 +54,18 @@ class LettersUpdateView(UpdateView):
     """
     Контроллер редактирования письма
     """
+
     model = Letter
     form_class = LettersForm
-    extra_context = {'title': 'Письма'}
-    success_url = reverse_lazy('letters:letters_list')
+    extra_context = {"title": "Письма"}
+    success_url = reverse_lazy("letters:letters_list")
 
 
 class LettersDeleteView(DeleteView):
     """
     Контроллер удаления письма
     """
+
     model = Letter
-    extra_context = {'title': 'Письма'}
+    extra_context = {"title": "Письма"}
     success_url = reverse_lazy("letters:letters_list")

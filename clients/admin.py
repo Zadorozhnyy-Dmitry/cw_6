@@ -8,6 +8,7 @@ class ClientAdmin(admin.ModelAdmin):
     """
     Админка клиента
     """
+
     list_display = (
         "id",
         "name",
@@ -15,4 +16,7 @@ class ClientAdmin(admin.ModelAdmin):
         "comments",
         "owner",
     )
-    list_filter = ("owner", "client_email",)
+    list_filter = (
+        "owner",
+        "client_email",
+    )

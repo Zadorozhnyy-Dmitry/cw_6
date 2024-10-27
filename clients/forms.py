@@ -8,6 +8,11 @@ class ClientsForm(StyleFormMixin, forms.ModelForm):
     """
     Класс для описания формы клиента
     """
+
     class Meta:
         model = Client
-        fields = ("name", "client_email", "comments",)
+        fields = (
+            "name",
+            "client_email",
+            "comments",
+        )

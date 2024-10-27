@@ -8,9 +8,10 @@ class LetterAdmin(admin.ModelAdmin):
     """
     Админка для сообщения клиенту
     """
+
     list_display = (
-        'id',
-        'topic',
-        'body',
-        'owner',
+        "id",
+        "topic",
+        "body",
+        "owner",
     )

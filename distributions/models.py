@@ -66,8 +66,10 @@ class Distribution(models.Model):
         User, on_delete=models.SET_NULL, verbose_name="Пользователь", **NULLABLE
     )
     clients = models.ManyToManyField(Client, verbose_name="Адресаты")
-    letter = models.ForeignKey(Letter, on_delete=models.CASCADE, verbose_name='Письмо')
-    counter = models.PositiveIntegerField(default=0, editable=False, verbose_name='Количество отправлений')
+    letter = models.ForeignKey(Letter, on_delete=models.CASCADE, verbose_name="Письмо")
+    counter = models.PositiveIntegerField(
+        default=0, editable=False, verbose_name="Количество отправлений"
+    )
 
     def clean(self):
         # Проверка, что дата окончания больше даты начала
@@ -86,6 +88,7 @@ class Attempt(models.Model):
     """
     Модель описывает попытку рассылки
     """
+
     STATUS_CHOICES = {
         ("done", "выполнена"),
         ("failed", "неудачно"),
@@ -100,7 +103,9 @@ class Attempt(models.Model):
         verbose_name="Статус рассылки",
     )
     server_answer = models.TextField(verbose_name="Ответ сервера")
-    distributions = models.ForeignKey(Distribution, on_delete=models.CASCADE, verbose_name='Рассылка')
+    distributions = models.ForeignKey(
+        Distribution, on_delete=models.CASCADE, verbose_name="Рассылка"
+    )
 
     def __str__(self):
         return f"Рассылка {self.distributions.name}. Пользователь: {self.distributions.owner.email}. Дата: {self.last_attempt}. Статус: {self.status}"
@@ -108,4 +113,4 @@ class Attempt(models.Model):
     class Meta:
         verbose_name = "Отчет"
         verbose_name_plural = "Отчеты"
-        ordering = ('last_attempt',)
+        ordering = ("last_attempt",)

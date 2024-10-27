@@ -25,6 +25,15 @@ class DistributionAdmin(admin.ModelAdmin):
 
 @admin.register(Attempt)
 class AttemptAdmin(admin.ModelAdmin):
-    list_display = ('id', 'last_attempt', 'status', 'server_answer', 'distributions',)
-    list_filter = ('status',)
-    search_fields = ('last_attempt', 'server_answer',)
+    list_display = (
+        "id",
+        "last_attempt",
+        "status",
+        "server_answer",
+        "distributions",
+    )
+    list_filter = ("status",)
+    search_fields = (
+        "last_attempt",
+        "server_answer",
+    )
