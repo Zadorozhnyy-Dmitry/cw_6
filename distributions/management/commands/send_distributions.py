@@ -1,3 +1,5 @@
+import logging
+
 from django.core.management import BaseCommand
 
 from distributions.models import Distribution

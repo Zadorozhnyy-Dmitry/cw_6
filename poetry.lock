@@ -149,6 +149,19 @@ argon2 = ["argon2-cffi (>=19.1.0)"]
 bcrypt = ["bcrypt"]
 
 [[package]]
+name = "django-crontab"
+version = "0.7.1"
+description = "dead simple crontab powered job scheduling for django"
+optional = false
+python-versions = "*"
+files = [
+    {file = "django-crontab-0.7.1.tar.gz", hash = "sha256:1201810a212460aaaa48eb6a766738740daf42c1a4f6aafecfb1525036929236"},
+]
+
+[package.dependencies]
+Django = ">=1.8"
+
+[[package]]
 name = "django-stubs"
 version = "5.1.0"
 description = "Mypy stubs for Django"
@@ -761,4 +774,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "781e10f9162a3412adcacc24386aa6c7ed525c911f01e71c20390a0defc2d2bd"
+content-hash = "b54f5d496fd7bf41e5f808c30f7263414cf8dddc0e13f30ed65c475473c5580f"
